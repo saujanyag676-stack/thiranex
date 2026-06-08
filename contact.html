@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me | Alex Morgan Portfolio</title>
+    <meta name="description" content="Get in touch with Alex Morgan for freelance availability or software engineering opportunities. Fully accessible communication terminal.">
+    <link rel="canonical" href="https://yourdomain.com/contact.html">
+    <style>
+        .skip-link { position: absolute; top: -40px; left: 0; background: #000; color: #fff; padding: 8px; z-index: 100; transition: top 0.2s; }
+        .skip-link:focus { top: 0; }
+        *:focus-visible { outline: 3px solid #005a9c; outline-offset: 2px; }
+        
+        .form-group { margin-bottom: 1.5rem; display: flex; flex-direction: column; }
+        .form-group label { margin-bottom: 0.5rem; font-weight: bold; }
+        .form-group input, .form-group textarea { padding: 12px; font-size: 1rem; border: 1px solid #767676; border-radius: 4px; max-width: 500px; }
+        .error-message { color: #b00020; font-size: 0.9rem; margin-top: 5px; display: none; }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header style="background-color: #f8f9fa; padding: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+            <a href="index.html" aria-label="Alex Morgan Home" style="font-weight: bold; text-decoration: none; color: #333;">AM.</a>
+            <nav aria-label="Main Navigation">
+                <ul style="list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html" aria-current="page" style="color: #005a9c; font-weight: bold;">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" tabindex="-1" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+        <h1>Get In Touch</h1>
+        <p>Have an engineering challenge or an open engineering role? Fill out the accessible terminal form below, and I will respond within 48 business hours.</p>
+
+        <div id="form-status" aria-live="polite" style="margin: 20px 0; font-weight: bold;"></div>
+
+        <form id="contact-form" novalidate action="#" method="POST" style="margin-top: 2rem;">
+            
+            <div class="form-group">
+                <label Interchangeable for="user-name">Full Name (Required)</label>
+                <input 
+                    type="text" 
+                    id="user-name" 
+                    name="name" 
+                    required 
+                    autocomplete="name"
+                    aria-required="true"
+                >
+                <span class="error-message" id="name-error" aria-live="assertive">Please enter your full name.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="user-email">Email Address (Required)</label>
+                <input 
+                    type="email" 
+                    id="user-email" 
+                    name="email" 
+                    required 
+                    autocomplete="email"
+                    aria-required="true"
+                >
+                <span class="error-message" id="email-error" aria-live="assertive">Please enter a valid active email address.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="user-message">Message Details</label>
+                <textarea 
+                    id="user-message" 
+                    name="message" 
+                    rows="6" 
+                    required
+                    aria-required="true"
+                    placeholder="Describe your project goals or job requirements..."
+                ></textarea>
+                <span class="error-message" id="message-error" aria-live="assertive">Please type your message details before submitting.</span>
+            </div>
+
+            <button type="submit" style="background: #005a9c; color: white; padding: 12px 24px; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; font-weight: bold;">
+                Send Message
+            </button>
+        </form>
+    </main>
+
+    <footer style="background-color: #333; color: #fff; padding: 2rem; text-align: center; margin-top: 4rem;">
+        <p>&copy; 2026 Alex Morgan. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            let isFormValid = true;
+            const fields = [
+                { id: 'user-name', errorId: 'name-error' },
+                { id: 'user-email', errorId: 'email-error' },
+                { id: 'user-message', errorId: 'message-error' }
+            ];
+
+            fields.forEach(field => {
+                const input = document.getElementById(field.id);
+                const errorSpan = document.getElementById(field.errorId);
+                
+                if (!input.value.trim() || (input.type === 'email' && !input.value.includes('@'))) {
+                    isFormValid = false;
+                    input.setAttribute('aria-invalid', 'true');
+                    input.setAttribute('aria-describedby', field.errorId);
+                    errorSpan.style.display = 'block';
+                } else {
+                    input.removeAttribute('aria-invalid');
+                    input.removeAttribute('aria-describedby');
+                    errorSpan.style.display = 'none';
+                }
+            });
+
+            const statusRegion = document.getElementById('form-status');
+            if (!isFormValid) {
+                statusRegion.innerHTML = '<span style="color:#b00020;">Form submission failed. Please correct the invalid fields above.</span>';
+                // Move focus to the first error input field programmatically 
+                const firstError = fields.find(f => document.getElementById(f.id).getAttribute('aria-invalid') === 'true');
+                if(firstError) document.getElementById(firstError.id).focus();
+            } else {
+                statusRegion.innerHTML = '<span style="color:green;">Success! Thank you, your submission was transmitted successfully.</span>';
+                document.getElementById('contact-form').reset();
+            }
+        });
+    </script>
+</body>
+</html>
