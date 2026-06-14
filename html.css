@@ -1,0 +1,279 @@
+/* ==========================================================================
+   1. VARIABLES & THEMES (Custom Properties)
+   ========================================================================== */
+:root {
+  /* Typography */
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Layout Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2.5rem;
+  --spacing-xl: 4rem;
+  --container-max-width: 1200px;
+  
+  /* Design Tokens */
+  --border-radius: 12px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* Light Theme Palette (Default) */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent: #6366f1; /* Indigo */
+  --accent-hover: #4f46e5;
+  --border-color: #e2e8f0;
+}
+
+/* Dark Theme Palette */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #818cf8;
+  --accent-hover: #6366f1;
+  --border-color: #334155;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: var(--transition-smooth);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   3. MOBILE-FIRST LAYOUT ARCHITECTURE (Global Grid)
+   ========================================================================== */
+.site-wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* ==========================================================================
+   4. COMPONENT ALIGNMENT (Flexbox)
+   ========================================================================== */
+/* Header & Navigation */
+.site-header {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--spacing-md);
+  list-style: none;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+/* Utility Buttons (Theme Toggle) */
+.theme-toggle-btn {
+  background: var(--border-color);
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 60vh;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xl) 0;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+}
+
+.hero p {
+  color: var(--text-secondary);
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  max-width: 600px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--accent);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  margin-top: var(--spacing-sm);
+}
+
+.btn:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   5. TWO-DIMENSIONAL COMPLEX LAYOUTS (CSS Grid)
+   ========================================================================== */
+.section-title {
+  margin-bottom: var(--spacing-lg);
+  font-size: 2rem;
+  position: relative;
+}
+
+/* Projects Grid - Auto-fit items dynamically */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) 0 var(--spacing-xl);
+}
+
+.project-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition-smooth);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.project-content {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  list-style: none;
+  margin-top: var(--spacing-sm);
+}
+
+.tag {
+  background-color: var(--bg-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Footer layout */
+.site-footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: var(--spacing-lg) 0;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   6. RESPONSIVE MEDIA QUERIES (Desktop Enhancements)
+   ========================================================================== */
+@media (min-width: 768px) {
+  .hero {
+    min-height: 70vh;
+  }
+  
+  /* Creating an asymmetric feature layout for large screens using CSS Grid */
+  .projects-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  .project-card {
+    grid-column: span 3;
+  }
+  
+  /* Make the first project card visually dominant */
+  .project-card:first-child {
+    grid-column: span 6;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+  
+  .project-card:first-child .project-content {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .projects-grid {
+    gap: var(--spacing-xl);
+  }
+}
+
+/* ==========================================================================
+   7. ACCESSIBILITY & PREFERENCES
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
